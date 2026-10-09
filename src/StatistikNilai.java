@@ -48,5 +48,45 @@ public class StatistikNilai {
 
         System.out.println("Nilai tersimpan : " + daftar);
         System.out.println("Jumlah          : " + daftar.size());
+
+        // ===== PUTARAN PERTAMA: total, tertinggi, terendah =====
+        // Tertinggi DAN terendah sama-sama dimulai dari NILAI PERTAMA di daftar (daftar.get(0)), bukan dari 0.
+        // Kalau terendah dimulai dari 0, hasilnya selalu 0: tidak ada nilai ujian yang lebih kecil dari 0,
+        // jadi "x < terendah" tidak pernah benar. Untuk tertinggi, mulai dari 0 kebetulan masih benar,
+        // tapi nilai pertama aman untuk keduanya dan pasti berasal dari data yang ada.
+        // get(0) aman di sini karena daftar sudah dipastikan tidak kosong.
+        int total = 0;
+        int tertinggi = daftar.get(0);
+        int terendah = daftar.get(0);
+
+        for (int x : daftar) {
+            total += x;
+            if (x > tertinggi) {
+                tertinggi = x;
+            }
+            if (x < terendah) {
+                terendah = x;
+            }
+        }
+
+        // (double) dulu supaya pembagian tidak dibulatkan seperti pembagian int
+        double rataRata = (double) total / daftar.size();
+
+        // String.format mengikuti locale laptop; locale Indonesia memakai koma (75,50)
+        System.out.println("Rata-rata       : " + String.format("%.2f", rataRata));
+        System.out.println("Tertinggi       : " + tertinggi);
+        System.out.println("Terendah        : " + terendah);
+
+        // ===== PUTARAN KEDUA: jumlah mahasiswa di atas rata-rata =====
+        // Harus putaran kedua, tidak bisa dihitung di putaran pertama: rata-rata baru diketahui setelah
+        // SEMUA nilai dijumlahkan (putaran pertama selesai). Saat nilai pertama (misalnya 85) dibaca,
+        // nilai sesudahnya belum terlihat, jadi rata-ratanya belum ada dan 85 belum bisa dibandingkan.
+        int diAtasRataRata = 0;
+        for (int x : daftar) {
+            if (x > rataRata) {
+                diAtasRataRata++;
+            }
+        }
+        System.out.println("Di atas rata2   : " + diAtasRataRata + " orang");
     }
-}
+}g
