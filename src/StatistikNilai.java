@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class StatistikNilai {
@@ -88,5 +89,38 @@ public class StatistikNilai {
             }
         }
         System.out.println("Di atas rata2   : " + diAtasRataRata + " orang");
+
+        // ===== DISTRIBUSI GRADE =====
+        // Index sesuai tabel: 0 = A (>= 90), 1 = B (>= 80), 2 = C (>= 70), 3 = D (>= 60), 4 = E (< 60)
+        String[] namaGrade = {"A", "B", "C", "D", "E"};
+        int[] jumlahGrade = new int[5];
+
+        for (int x : daftar) {
+            if (x >= 90) {
+                jumlahGrade[0]++;
+            } else if (x >= 80) {
+                jumlahGrade[1]++;
+            } else if (x >= 70) {
+                jumlahGrade[2]++;
+            } else if (x >= 60) {
+                jumlahGrade[3]++;
+            } else {
+                jumlahGrade[4]++;
+            }
+        }
+
+        // Dicetak dengan loop (bukan lima baris println). Batas aman: i < length, bukan i <= length
+        System.out.print("Distribusi      :");
+        for (int i = 0; i < jumlahGrade.length; i++) {
+            System.out.print(" " + namaGrade[i] + "=" + jumlahGrade[i]);
+        }
+        System.out.println();
+
+        // ===== DAFTAR TERURUT (dari salinan) =====
+        ArrayList<Integer> terurut = new ArrayList<>(daftar);  // salinan: list baru dengan isi yang sama
+        Collections.sort(terurut);                             // yang diurutkan hanya salinannya
+
+        System.out.println("Terurut         : " + terurut);
+        System.out.println("Urutan asli     : " + daftar);     // daftar asli tetap sesuai urutan input
     }
-}g
+}
